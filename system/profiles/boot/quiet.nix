@@ -31,18 +31,19 @@
       #       configurationLimit = 3;
       #    };
       # };
-		loader = {
-         timeout = 5; # The default, I recommend making this shorter
-         grub    = {
-            enable      = true;
-            device      = "/dev/sda"; # TODO: Make into a variable to set in host config.
-            useOSProber = true;
-            efiSupport  = false;
-            extraConfig = ''set timeout_style=hidden'';
-            splashImage = lib.mkForce null;
-            gfxmodeBios = "2560x1600";
-         };
-      };
+      #
+		#loader = {
+      #   timeout = 0;
+      #   grub    = {
+      #      enable      = true;
+      #      device      = "/dev/sda"; # TODO: Make into a variable to set in host config.
+      #      useOSProber = true;
+      #      efiSupport  = false;
+      #      extraConfig = ''set timeout_style=hidden'';
+      #      splashImage = lib.mkForce null;
+      #      gfxmodeBios = "2560x1600";
+      #   };
+      #};
    };
 }
 

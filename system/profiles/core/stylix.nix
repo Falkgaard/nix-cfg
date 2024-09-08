@@ -18,10 +18,10 @@ in {
          gnome.enable       = true;
          gtk.enable         = true;
          nixos-icons.enable = true;
-         # grub = {
-         #   enable   = true;
-         #   useImage = true;
-         # };
+         grub = {
+            enable   = true;
+            useImage = true;
+         };
          #
          # feh.enable = true;
          #
@@ -33,11 +33,11 @@ in {
          #
          # lightdm.enable = true;
          #
-         # plymouth = {
-         #    enable       = true;
-         #    logo         = ./path/to/logo.TODO.png
-         #    logoAnimated = true;
-         # };
+         plymouth = {
+            enable       = true;
+            logo         = ../../resources/images/Nix-logo.png;
+            logoAnimated = true;
+         };
       };
 
       /* Option A:  Tints an the wallpaper:
