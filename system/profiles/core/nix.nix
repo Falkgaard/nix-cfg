@@ -22,7 +22,7 @@ in {
             #"ca-derivations"
          ];
 
-         warn-dirty = true;
+         warn-dirty = false;
 
          system-features = [
             "kvm"

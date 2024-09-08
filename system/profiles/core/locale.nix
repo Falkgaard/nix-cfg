@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 {
    time.timeZone            = "Europe/Malta";
    i18n.defaultLocale       = "en_US.UTF-8";
@@ -15,7 +15,7 @@
    };
 
    # Configure keyboard:
-   console.keyMap = "sv-latin1";
+   console.keyMap = lib.mkForce "sv-latin1";
    services.xserver.xkb = {
       layout  = "se";
       variant = "";
