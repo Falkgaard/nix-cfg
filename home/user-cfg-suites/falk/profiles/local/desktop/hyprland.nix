@@ -87,10 +87,10 @@ in {
             gaps_in               =  5;
             gaps_out              = 10;
             border_size           =  2;
-            "col.active_border"   = "rgba(33CCFFEE) rgba(00FF99EE) 45deg";
-            "col.inactive_border" = "rgba(595959AA)";
-            #"col.active_border"   = lib.mkForce "rgba(${config.stylix.base16Scheme.base0E}FF) rgba(${config.stylix.base16Scheme.base09}FF) 60deg";
-            #"col.inactive_border" = lib.mkForce "rgba(${config.stylix.base16Scheme.base00}FF)";
+            "col.active_border"   = mkForce "rgba(33CCFFEE) rgba(00FF99EE) 45deg";
+            "col.inactive_border" = mkForce  "rgba(595959AA)";
+            #"col.active_border"   = mkForce "rgba(${config.stylix.base16Scheme.base0E}FF) rgba(${config.stylix.base16Scheme.base09}FF) 60deg";
+            #"col.inactive_border" = mkForce "rgba(${config.stylix.base16Scheme.base00}FF)";
             resize_on_border      = false;
             allow_tearing         = false; # See https://wiki.hyprland.org/Configuring/Tearing/
             layout                = "dwindle";
