@@ -1,11 +1,11 @@
-{ pkgs, config, home-manager, ... }:
+{ pkgs, config, ... }:
 let
    # See `https://tinted-theming.github.io/base16-gallery/` for options.
    base16_scheme_name = "gruvbox-material-dark-soft"; # "da-one-paper";
    base16_scheme      = "${pkgs.base16-schemes}/share/themes/${base16_scheme_name}.yaml";
    wallpaper_path     = ../../../resources/local-user/images/wallpapers/01.png;
 in {
-   config.stylix = {
+   home.stylix = {
 
       enable = true;
 
