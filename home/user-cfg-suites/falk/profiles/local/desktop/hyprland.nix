@@ -61,7 +61,7 @@ let
    mkForce   = lib.mkForce;
 in {   
    # TODO: environment system packages?
-   packages = with pkgs; [
+   home.packages = with pkgs; [
       libnotify       # (dependency of mako & dunst)
       mako            # Notification daemon for Hyprland (alt: dunst)
       grim            # Screenshot utility
