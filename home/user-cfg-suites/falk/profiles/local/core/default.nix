@@ -1,6 +1,5 @@
-{ ... }:
+{ pkgs, config, home-manager, ... }:
 {
-   imports = [ ./stylix.nix ];
-
    programs.firefox.enable = true;
+   imports = [ ./stylix.nix ];
 }
