@@ -69,7 +69,7 @@ in {
       swww            # Wallpaper system   (alt. hyprpaper|swaybg|wpaperd)
       wl-clipboard    # Clipboard (Wayland)
       rofi-wayland    # Application runner (alt: bemenu|fuzzel|tofi|wofi) (TODO: refactor out)
-      waybar          # Bar                                               (TODO: refactor out)
+      #waybar          # Bar                                               (TODO: refactor out)
       (waybar.overrideAttrs(
          oldAttrs: {
             mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];

@@ -230,9 +230,9 @@ in rec {
 
       mkHostSystems =
          builtins.listToAttrs
-             (forEachHost
-                ( hostName: { name = hostName; value = mkHostSystem hostName; } )
-             );
+            (forEachHost
+               ( hostName: { name = hostName; value = mkHostSystem hostName; } )
+            );
 
       mkUserHome = userName: hostName:
          lib.homeManagerConfiguration {
@@ -255,7 +255,7 @@ in rec {
                      (hostUserName: # Generate `{K;V;}` for each user; i.e. `[{K;V;}]*]`:
                         {
                            name  = "${hostUserName}@${hostName}";    # Key   `K` of form `user@host`.
-                           value = mkUserHome hostUserName hostName; # Value `V` of form `{/*...home config...*/}`.
+                           value = mkUserHome hostUserName hostName; # Value `V` of form `{/*home config*/}`.
                         }
                      )
                )
