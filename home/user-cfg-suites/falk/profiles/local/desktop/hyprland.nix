@@ -57,6 +57,7 @@
    #   "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
    # ]; # ++ autostarts;
 in*/ {
+   /*
    home.packages = with pkgs; [
       libnotify       # (dependency of mako & dunst)
       mako            # Notification daemon for Hyprland (alt: dunst)
@@ -308,4 +309,5 @@ in*/ {
          #exec-once = exec-once; 
       }; # end-of: `wayland.windowManager.hyprland.settings`
    }; # end-of: `wayland.windowManager.hyprland`
+   */
 }
