@@ -19,7 +19,7 @@ let
 in rec {
       # TODO: Decide on organization (group by domain or alphabetically?)
 
-      userList  = listSubDirs ../hosts; # TODO: Ensure|assert valid internal structure.
+      userList  = listSubDirs ../users; # TODO: Ensure|assert valid internal structure.
       #userList = builtins.map (e: stripFileExtension e) (listNixFiles ../users);
 
       userInfoMap = builtins.listToAttrs
