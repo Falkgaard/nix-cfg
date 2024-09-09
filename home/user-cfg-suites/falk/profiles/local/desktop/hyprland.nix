@@ -8,39 +8,39 @@ let
    #   ${lib.concatLines moveToMonitor}
    #'';
    
-   # generalStartScript = pkgs.writeShellScriptBin "start" '' 
-   #    ${pkgs.swww}/bin/swww init &
-   #    
-   #    ${pkgs.waybar}/bin/waybar &
-   #    
-   #    ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
-   #    
-   #    hyprctl setcursor Bibata-Modern-Classic 24 &
-   #    
-   #    systemctl --user import-environment PATH &
-   #    systemctl --user restart xdg-desktop-portal.service &
-   #    
-   #    # Wait a tiny bit for wallpaper:
-   #    sleep 2
-   #    
-   #    ${pkgs.swww}/bin/swww img ${config.stylix.image} &
-   #    
-   #    # Wait for monitors to connect:
-   #    sleep 3
-   #    ags &
-   #    
-   #    #dollar{lib.getExe moveToMonitorScript}
-   #    
-   #    # General startupScript extension:
-   #    #dollar{config.myHomeManager.startupScript}
-   # '';
+   generalStartScript = pkgs.writeShellScriptBin "start" '' 
+      ${pkgs.swww}/bin/swww init &
+      
+      ${pkgs.waybar}/bin/waybar &
+      
+      ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
+      
+      hyprctl setcursor Bibata-Modern-Classic 24 & # TODO: Remove if Stylix does it
+      
+      systemctl --user import-environment PATH &
+      systemctl --user restart xdg-desktop-portal.service &
+      
+      # Wait a tiny bit for wallpaper:
+      sleep 2
+      
+      ${pkgs.swww}/bin/swww img ${config.stylix.image} &
+      
+      # Wait for monitors to connect:
+      sleep 3
+      ags &
+      
+      #dollar{lib.getExe moveToMonitorScript}
+      
+      # General startupScript extension:
+      #dollar{config.myHomeManager.startupScript}
+   '';
    
-   #autostarts = lib.lists.flatten(
-   #   lib.mapAttrsToList(
-   #      id: workspace: (map (startentry: "[workspace ${id} silent] ${startentry}") workspace.autostart)
-   #   )
-   #   config.myHomeManager.workspaces
-   #);
+   autostarts = [] /*lib.lists.flatten(
+      lib.mapAttrsToList(
+         id: workspace: (map (startentry: "[workspace ${id} silent] ${startentry}") workspace.autostart)
+      )
+      config.myHomeManager.workspaces
+   )*/;
    
    #monitorScript = pkgs.writeShellScriptBin "script" ''
    #   handle() {
@@ -51,15 +51,16 @@ let
    #   ${lib.getExe pkgs.socat} - "UNIX-CONNECT:/tmp/hypr/''${HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock" | while read -r line; do handle "$line"; done
    #'';
    
-   #exec-once = [
-   #   ( lib.getExe   generalStartScript )
-   #   ( lib.getExe        monitorScript )
-   #   "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-   # ]; # ++ autostarts;
+   exec-once = [
+      ( lib.getExe   generalStartScript )
+      (# lib.getExe        monitorScript )
+      "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+   ] ++ autostarts;
+
    mkDefault = lib.mkDefault;
    mkForce   = lib.mkForce;
 in {
-   /*
+   
    home.packages = with pkgs; [
       libnotify       # (dependency of mako & dunst)
       mako            # Notification daemon for Hyprland (alt: dunst)
@@ -76,7 +77,6 @@ in {
       ))
       networkmanagerapplet
    ];
-   */
 
    wayland.windowManager.hyprland = {
          
@@ -307,7 +307,7 @@ in {
             "$mainMod, mouse:273, resizewindow" #   move on RMB drag
          ];
             
-         #exec-once = exec-once; 
+         exec-once = exec-once; 
       }; # end-of: `wayland.windowManager.hyprland.settings`
    }; # end-of: `wayland.windowManager.hyprland`
 }
