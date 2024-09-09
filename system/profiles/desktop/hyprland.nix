@@ -15,6 +15,11 @@
       nvidia.modesetting.enable = true; # TODO: What if AMD..?
    };
 
+   xg.portal = {
+      enable       = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # KDE?
+   };
+
    /*{
       wayland.windowManager.hyprland = {
       enable  = true;
