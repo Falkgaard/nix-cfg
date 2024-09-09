@@ -19,7 +19,7 @@ let
 in rec {
       # TODO: Decide on organization (group by domain or alphabetically?)
 
-      userList  = listSubDirs ../users; # TODO: Ensure|assert valid internal structure.
+      userList  = listSubDirs ../users    ; # TODO: Ensure|assert valid internal structure.
       #userList = builtins.map (e: stripFileExtension e) (listNixFiles ../users);
 
       userInfoMap = builtins.listToAttrs
@@ -241,8 +241,8 @@ in rec {
             pkgs             = inputs.nixpkgs.legacyPackages.${import ../hosts/${hostName}/platform};
             extraSpecialArgs = { inherit inputs outputs system-lib; };
             modules          = [
-               ../home/global/profiles/core                                           # Global core config.
-               ../home/user-cfg-suites/${userName}/profiles/local/core                # User   core config.
+               #../home/global/profiles/core                                          # Global core config.
+               #../home/user-cfg-suites/${userName}/profiles/local/core               # User   core config.
                ../home/user-cfg-suites/${userName}/user-cfg-instances/${hostName}.nix # User@Host   config.
             ];
          };

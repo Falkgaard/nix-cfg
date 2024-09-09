@@ -3,6 +3,9 @@ let
    username = "falk"; # TODO: Not fond of hard-coding this here... find a better solution.
 in {
    imports = [
+      ../profiles/global/core # Do *NOT* edit!
+      ../profiles/local/core  # Do *NOT* edit!
+      # Feel free to add additional profiles below:
       ../profiles/global/workflows/graphics
       ../profiles/local/desktop/hyprland.nix
       ../profiles/local/general/home
