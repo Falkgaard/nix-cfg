@@ -35,12 +35,12 @@ let
       #dollar{config.myHomeManager.startupScript}
    '';
    
-   /*autostarts = lib.lists.flatten(
+   autostarts = [] /*lib.lists.flatten(
       lib.mapAttrsToList(
          id: workspace: (map (startentry: "[workspace ${id} silent] ${startentry}") workspace.autostart)
       )
       config.myHomeManager.workspaces
-   );*/
+   )*/;
    
    #monitorScript = pkgs.writeShellScriptBin "script" ''
    #   handle() {
@@ -53,9 +53,9 @@ let
    
    exec-once = [
       ( lib.getExe   generalStartScript )
-      (# lib.getExe        monitorScript )
+      #( lib.getExe        monitorScript )
       "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-   ]; # ++ autostarts;
+   ] ++ autostarts;
 
    mkDefault = lib.mkDefault;
    mkForce   = lib.mkForce;
