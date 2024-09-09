@@ -29,7 +29,7 @@ in {
          # foot.enable      = true;
          # fuzzel.enable    = true;
          # fzf.enable       = true;
-         # gedit.enable     = true;
+         # gedit.enable     = true; 
          # gitui.enable     = true;
          gnome.enable       = true;
          gtk = {
