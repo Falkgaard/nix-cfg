@@ -1,6 +1,21 @@
 { pkgs, inputs, ... }:
 {
-   programs.hyprland.enable = true; 
+   programs.hyprland = {
+      enable          = true;
+      nvidiaPatches   = true; # TODO: What if AMD..?
+      xwayland.enable = true;
+   };
+
+   environment.sessionVariables = {
+      WLR_NO_HARDWARE_CURSORS = "1";
+      NIXOS_OZONE_WL          = "1";
+   };
+
+   hardware = {
+      opengl.enable             = true;
+      nvidia.modesetting.enable = true; # TODO: What if AMD..?
+   }
+
    /*{
       wayland.windowManager.hyprland = {
       enable  = true;

@@ -27,7 +27,7 @@ let
       
       # Wait for monitors to connect:
       sleep 3
-      ags &
+      #ags & # TODO: re-enable when added
       
       #dollar{lib.getExe moveToMonitorScript}
       
@@ -61,11 +61,12 @@ let
    mkForce   = lib.mkForce;
 in {
    
+   # TODO: environment system packages?
    home.packages = with pkgs; [
       libnotify       # (dependency of mako & dunst)
       mako            # Notification daemon for Hyprland (alt: dunst)
       grim            # Screenshot utility
-      slurp           # Select utility
+      slurp           # Selec t utility
       swww            # Wallpaper system   (alt. hyprpaper|swaybg|wpaperd)
       wl-clipboard    # Clipboard (Wayland)
       rofi-wayland    # Application runner (alt: bemenu|fuzzel|tofi|wofi) (TODO: refactor out)
