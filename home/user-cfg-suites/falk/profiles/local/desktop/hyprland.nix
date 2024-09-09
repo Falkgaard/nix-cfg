@@ -119,11 +119,11 @@ in {
             #"hyprcursor_size,24"
          ];
          
-         misc = {
-            #enable_swallow          = true;
-            force_default_wallpaper = 0;
-            #swallow_regex           = "^(Alacritty|wezterm)$";
-         };
+         #misc = {
+         #   #enable_swallow          = true;
+         #   #force_default_wallpaper = 0;
+         #   #swallow_regex           = "^(Alacritty|wezterm)$";
+         #};
 
          # binds = {
          #    movefocus_cycles_fullscreen = 0; # TODO: look into.
