@@ -5,7 +5,7 @@ let
    base16_scheme      = "${pkgs.base16-schemes}/share/themes/${base16_scheme_name}.yaml";
    wallpaper_path     = ../../../resources/local-user/images/wallpapers/01.png;
 in {
-   stylix = {
+   config.stylix = {
 
       enable = true;
 
