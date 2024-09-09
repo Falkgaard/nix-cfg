@@ -59,7 +59,7 @@ let
    mkDefault = lib.mkDefault;
    mkForce   = lib.mkForce;
 in {
-   
+   /*
    home.packages = with pkgs; [
       libnotify       # (dependency of mako & dunst)
       mako            # Notification daemon for Hyprland (alt: dunst)
@@ -76,7 +76,8 @@ in {
       ))
       networkmanagerapplet
    ];
-
+   */
+   
    wayland.windowManager.hyprland = {
          
       enable = true;
