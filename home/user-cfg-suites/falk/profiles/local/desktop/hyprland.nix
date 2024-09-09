@@ -40,7 +40,7 @@ let
          id: workspace: (map (startentry: "[workspace ${id} silent] ${startentry}") workspace.autostart)
       )
       config.myHomeManager.workspaces
-   )*/;
+   );*/
    
    #monitorScript = pkgs.writeShellScriptBin "script" ''
    #   handle() {
