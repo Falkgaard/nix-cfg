@@ -81,7 +81,7 @@ in {
    wayland.windowManager.hyprland = {
       enable          = true;
       xwayland.enable = true;
-      symd.enable     = true;
+      systemd.enable   = true;
       package         = pkgs.hyprland;
       settings = {
          general = {
