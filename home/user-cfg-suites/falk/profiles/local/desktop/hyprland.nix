@@ -11,7 +11,7 @@ let
    generalStartScript = pkgs.writeShellScriptBin "start" '' 
       ${pkgs.swww}/bin/swww init &
       
-      ${pkgs.waybar}/bin/waybar &
+      #dollar{pkgs.waybar}/bin/waybar &
       
       ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
       
@@ -69,12 +69,12 @@ in {
       swww            # Wallpaper system   (alt. hyprpaper|swaybg|wpaperd)
       wl-clipboard    # Clipboard (Wayland)
       rofi-wayland    # Application runner (alt: bemenu|fuzzel|tofi|wofi) (TODO: refactor out)
-      waybar          # Bar                                               (TODO: refactor out)
-      (waybar.overrideAttrs(
-         oldAttrs: {
-            mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-         }
-      ))
+      #waybar          # Bar                                               (TODO: refactor out)
+      #(waybar.overrideAttrs(
+      #   oldAttrs: {
+      #      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+      #   }
+      #))
       networkmanagerapplet
    ];
 
@@ -116,7 +116,7 @@ in {
          #   (lib.filter (m: m.enabled && m.workspace != null) config.myHomeManager.monitors);  
          
          env = [
-            "XCURSOR_SIZE,24"
+            #"XCURSOR_SIZE,24"
             #"xcursor_size,24"
             #"hyprcursor_size,24"
          ];
@@ -168,7 +168,7 @@ in {
                "fade, 1, 7, default"
                #"workspaces, 1, 3, default, slidevert"
                #"workspaces, 1, 3, myBezier, slidefadevert"
-               "workspaces, 1, 3, myBezier, fade"
+               #"workspaces, 1, 3, myBezier, fade"
             ];
          };
          
