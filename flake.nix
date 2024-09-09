@@ -8,9 +8,10 @@
          url                    = "github:nix-community/home-manager";
          inputs.nixpkgs.follows = "nixpkgs";
       };
+      hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
    };
 
-   outputs = inputs@{ self, nixpkgs, stylix, home-manager, ... }:
+   outputs = inputs@{ self, nixpkgs, stylix, home-manager, hyprland,  ... }:
    let
       inherit (self) outputs;
       system-lib = import ./libraries/system.nix { inherit inputs outputs; };
