@@ -5,6 +5,8 @@
    nix.settings.experimental-features = [ "nix-command" "flakes" ];
    services.printing.enable           = true; # Might as well, right?
 
+   #programs.firefox.enable = true; # Why can't I do this in home?
+
    imports = [
       ./cli.nix
       ./home-manager.nix

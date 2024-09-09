@@ -19,11 +19,12 @@ let
 in rec {
       # TODO: Decide on organization (group by domain or alphabetically?)
 
-      userList = builtins.map (e: stripFileExtension e) (listNixFiles ../users);
+      userList  = listSubDirs ../hosts; # TODO: Ensure|assert valid internal structure.
+      #userList = builtins.map (e: stripFileExtension e) (listNixFiles ../users);
 
       userInfoMap = builtins.listToAttrs
          (builtins.map
-            (userName: { name = userName; value = import ../users/${userName}.nix; } )
+            (userName: { name = userName; value = import ../users/${userName}; } )
             userList
          );
 
@@ -201,13 +202,14 @@ in rec {
          in {
             name  = userName;
             value = { # TODO: add let..in block with validation?
-               isNormalUser = (args.isNormalUser or true);
-               isSystemUser = (args.isSystemUser or false);
-               description  = (userInfoMap.${userName}.description or userName);
-               shell        = (preferredShell);
-               packages     = []; # TODO: Revisit.
-               extraGroups  = (args.extraGroups or [ "networkmanager" "wheel" ]);
-               #extraGroups  = (optionalListOfStringsOrDefault args.extraGroups [ "networkmanager" "wheel" ] "extraGroups"); # TODO: strip duplicates (if any)
+               initialPassword = (userInfoMap.${userName}.initialPassword or "");
+               isNormalUser    = (args.isNormalUser or true);
+               isSystemUser    = (args.isSystemUser or false);
+               description     = (userInfoMap.${userName}.description or userName);
+               shell           = (preferredShell);
+               packages        = []; # TODO: Revisit.
+               extraGroups     = (args.extraGroups or [ "networkmanager" "wheel" ]);
+               #extraGroups    = (optionalListOfStringsOrDefault args.extraGroups [ "networkmanager" "wheel" ] "extraGroups"); # TODO: strip duplicates (if any)
             };
          };
 
