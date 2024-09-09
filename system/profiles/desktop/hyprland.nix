@@ -2,7 +2,6 @@
 {
    programs.hyprland = {
       enable          = true;
-      nvidiaPatches   = true; # TODO: What if AMD..?
       xwayland.enable = true;
    };
 
