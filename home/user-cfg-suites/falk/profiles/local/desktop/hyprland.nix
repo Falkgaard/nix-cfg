@@ -59,7 +59,7 @@ let
    mkDefault = lib.mkDefault;
    mkForce   = lib.mkForce;
 in {
-   /*
+   
    home.packages = with pkgs; [
       libnotify       # (dependency of mako & dunst)
       mako            # Notification daemon for Hyprland (alt: dunst)
@@ -76,16 +76,12 @@ in {
       ))
       networkmanagerapplet
    ];
-   */
 
    wayland.windowManager.hyprland = {
          
-      #package   = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-      #package  = inputs.hyprland.packages."${pkgs.system}".hyprland;
-      enable   = true;
+      enable = true;
       
       settings = {
-         /*
          general = {
             gaps_in               =  5;
             gaps_out              = 10;
@@ -98,7 +94,6 @@ in {
             allow_tearing         = false; # See https://wiki.hyprland.org/Configuring/Tearing/
             layout                = "dwindle";
          };
-         */
 
          # monitor = lib.mapAttrsToList(
          #    name: m: let
@@ -141,7 +136,7 @@ in {
             drop_shadow         = true;
             shadow_range        = 20;
             shadow_render_power = 3;
-            "col.shadow"        = mkDefault "rgba(1A1A1AEE)";
+            "col.shadow"        =   mkDefault "rgba(1A1A1AEE)";
             blur                = {
                enabled               = true;
                size                  = 3;
@@ -197,7 +192,7 @@ in {
          # ];
          
          misc = {
-            #force_default_wallpaper = 0;
+            force_default_wallpaper = 0;
             disable_hyprland_logo   = true;
          };
          
