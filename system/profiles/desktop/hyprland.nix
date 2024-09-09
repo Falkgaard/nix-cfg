@@ -14,7 +14,7 @@
    hardware = {
       opengl.enable             = true;
       nvidia.modesetting.enable = true; # TODO: What if AMD..?
-   }
+   };
 
    /*{
       wayland.windowManager.hyprland = {
