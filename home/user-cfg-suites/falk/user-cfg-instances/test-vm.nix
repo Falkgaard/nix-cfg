@@ -6,6 +6,7 @@ in {
       ../profiles/global/core # TODO: Auto-add somehow... in lib-system's mkUserHomes?
       ../profiles/global/workflows/graphics
       ../profiles/local/core # TODO: Auto-add somehow... in lib-system's mkUserHomes?
+      ../profiles/local/desktop/hyprland.nix
       ../profiles/local/general/home
       ../profiles/local/general/media
       ../profiles/local/workflows/terminal

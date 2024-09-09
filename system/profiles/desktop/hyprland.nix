@@ -1,95 +1,89 @@
-{ pkgs, config, lib, input, ... }:
-let
-   moveToMonitor = lib.mapAttrsToList(
-      id: workspace: "hyprctl dispatch moveworkspacetomonitor ${id} ${toString workspace.monitorId}"
-   ) config.myHomeManager.workspaces;
+{ pkgs, config, lib, ... }:
+/* let
+   #moveToMonitor = lib.mapAttrsToList(
+   #   id: workspace: "hyprctl dispatch moveworkspacetomonitor ${id} ${toString workspace.monitorId}"
+   #) config.myHomeManager.workspaces;
    
+   #moveToMonitorScript = pkgs.writeShellScriptBin "script" ''
+   #   ${lib.concatLines moveToMonitor}
+   #'';
    
-   moveToMonitorScript = pkgs.writeShellScriptBin "script" ''
-      ${lib.concatLines moveToMonitor}
-   '';
+   # generalStartScript = pkgs.writeShellScriptBin "start" '' 
+   #    ${pkgs.swww}/bin/swww init &
+   #    
+   #    ${pkgs.waybar}/bin/waybar &
+   #    
+   #    ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
+   #    
+   #    hyprctl setcursor Bibata-Modern-Classic 24 &
+   #    
+   #    systemctl --user import-environment PATH &
+   #    systemctl --user restart xdg-desktop-portal.service &
+   #    
+   #    # Wait a tiny bit for wallpaper:
+   #    sleep 2
+   #    
+   #    ${pkgs.swww}/bin/swww img ${config.stylix.image} &
+   #    
+   #    # Wait for monitors to connect:
+   #    sleep 3
+   #    ags &
+   #    
+   #    #dollar{lib.getExe moveToMonitorScript}
+   #    
+   #    # General startupScript extension:
+   #    #dollar{config.myHomeManager.startupScript}
+   # '';
    
-   generalStartScript = pkgs.writeShellScriptBin "start" ''
-      ${pkgs.swww}/bin/swww init &
-      
-      ${pkgs.waybar}/bin/waybar &
-      
-      ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
-      
-     #hyprctl setcursor Bibata-Modern-Ice 16 &
-      
-      systemctl --user import-environment PATH &
-      systemctl --user restart xdg-desktop-portal.service &
-      
-      # Wait a tiny bit for wallpaper:
-      sleep 2
-      
-      ${pkgs.swww}/bin/swww img ${config.stylix.image} &
-      
-      # Wait for monitors to connect:
-      sleep 3
-      ags &
-      
-      ${lib.getExe moveToMonitorScript}
-      
-      # General startupScript extension:
-      ${config.myHomeManager.startupScript}
-    '';
+   #autostarts = lib.lists.flatten(
+   #   lib.mapAttrsToList(
+   #      id: workspace: (map (startentry: "[workspace ${id} silent] ${startentry}") workspace.autostart)
+   #   )
+   #   config.myHomeManager.workspaces
+   #);
    
+   #monitorScript = pkgs.writeShellScriptBin "script" ''
+   #   handle() {
+   #      case $1 in monitoradded*)
+   #         ${lib.getExe moveToMonitorScript}
+   #      esac
+   #   }
+   #   ${lib.getExe pkgs.socat} - "UNIX-CONNECT:/tmp/hypr/''${HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock" | while read -r line; do handle "$line"; done
+   #'';
    
-   autostarts = lib.lists.flatten(
-      lib.mapAttrsToList(
-         id: workspace: (map (startentry: "[workspace ${id} silent] ${startentry}") workspace.autostart)
-      )
-      config.myHomeManager.workspaces
-   );
-   
-   monitorScript = pkgs.writeShellScriptBin "script" ''
-      handle() {
-         case $1 in monitoradded*)
-            ${lib.getExe moveToMonitorScript}
-         esac
-      }
-      ${lib.getExe pkgs.socat} - "UNIX-CONNECT:/tmp/hypr/''${HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock" | while read -r line; do handle "$line"; done
-   '';
-   
-   exec-once = [
-      ( lib.getExe   generalStartScript )
-      ( lib.getExe        monitorScript )
-      # NOTE(yurii): I forgot why I need this
-      "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-    ] ++ autostarts;
-in {
+   #exec-once = [
+   #   ( lib.getExe   generalStartScript )
+   #   ( lib.getExe        monitorScript )
+   #   "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+   # ]; # ++ autostarts;
+in*/ {
    programs.hyprland.enable = true;
 
-   imports = [
-      ./monitors.nix
-      ./keymaps.nix
-   ];
+   # imports = [
+   #    ./monitors.nix
+   #    ./keymaps.nix
+   # ];
    
+   #options = {
+   #   hyprlandExtra  = lib.mkOption {
+   #      default     = "";
+   #      description = ''
+   #         Extra Hyprland config lines.
+   #      '';
+   #   };
+   #}; 
    
-   options = {
-      hyprlandExtra = lib.mkOption {
-         default     = "";
-         description = ''
-            extra hyprland config lines
-         '';
-      };
-   };
-   
-   
-   config = {
+   #config = {
       
-      myHomeManager.waybar.enable = lib.mkDefault false;
-      myHomeManager.ags.enable    = lib.mkDefault  true;
-      myHomeManager.keymap.enable = lib.mkDefault  true;
-      
+      #myHomeManager.waybar.enable = lib.mkDefault false;
+      #myHomeManager.ags.enable    = lib.mkDefault  true;
+      #myHomeManager.keymap.enable = lib.mkDefault  true;
+      /*
       wayland.windowManager.hyprland = {
          
          # package = inputs.hyprland.packages."${pkgs.system}".hyprland;
          
          enable = true;
-         
          
          settings = {
             general = {
@@ -105,26 +99,23 @@ in {
                layout                = "dwindle";
             };
             
-            
-            monitor = lib.mapAttrsToList(
-               name: m: let
-                  resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
-                  position = "${toString m.x}x${toString m.y}";
-               in "${name}, ${
-                  if m.enabled
-                  then "${resolution}, ${position}, 1"
-                  else "disable"
-               }"
-            )( config.myHomeManager.monitors );
-            
+            # monitor = lib.mapAttrsToList(
+            #    name: m: let
+            #       resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
+            #       position   = "${toString m.x}x${toString m.y}";
+            #    in "${name}, ${
+            #       if m.enabled
+            #       then "${resolution}, ${position}, 1"
+            #       else "disable"
+            #    }"
+            # )( config.myHomeManager.monitors );
             
             # workspace =
             #   lib.mapAttrsToList
             #   (
             #     name: m: "${m.name},${m.workspace}"
             #   )
-            #   (lib.filter (m: m.enabled && m.workspace != null) config.myHomeManager.monitors);
-            
+            #   (lib.filter (m: m.enabled && m.workspace != null) config.myHomeManager.monitors);  
             
             env = [
                "XCURSOR_SIZE,24"
@@ -132,33 +123,15 @@ in {
               #"hyprcursor_size,24"
             ];
             
-            
-            input = {
-               kb_layout      = "us,ru,ua";
-               kb_variant     = "";
-               kb_model       = "";
-               kb_options     = "grp:alt_shift_toggle,caps:escape";
-               kb_rules       = "";
-               follow_mouse   = 1;
-               touchpad       = { natural_scroll = false; };
-               repeat_rate    = 40;
-               repeat_delay   = 250;
-               force_no_accel = true;
-               sensitivity    = 0.0; # -1.0 - 1.0, 0 means no modification.
-            };
-            
-            
             misc = {
-               enable_swallow          = true;
+               #enable_swallow          = true;
                force_default_wallpaper = 0;
-              #swallow_regex           = "^(Alacritty|wezterm)$";
+               #swallow_regex           = "^(Alacritty|wezterm)$";
             };
             
-            
-            binds = {
-               movefocus_cycles_fullscreen = 0; # TODO: look into.
-            };
-            
+            # binds = {
+            #    movefocus_cycles_fullscreen = 0; # TODO: look into.
+            # };
             
             decoration = {
                rounding            = 5;
@@ -169,13 +142,12 @@ in {
                shadow_render_power = 3;
                "col.shadow"        = "rgba(1A1A1AEE)";
                blur                = {
-                   enabled            = true;
-                   size               = 3;
-                   passes             = 1;
-                   vibrancy           = 0.1696;
+                  enabled               = true;
+                  size                  = 3;
+                  passes                = 1;
+                  vibrancy              = 0.1696;
                };
             };
-            
             
             # TODO!
             animations = {
@@ -202,12 +174,10 @@ in {
                ];
             };
             
-            
             dwindle = {
                pseudotile     = true;
                preserve_split = true;
             };
-            
             
             master = {
                new_status    = "master";
@@ -216,41 +186,35 @@ in {
                # TODO
             };
             
-            
             gestures = {
                workspace_swipe = false;
             };
-            
             
             # device = {
             #    name        = "epic-mouse-v1";
             #    sensitivity = -0.5;
             # ];
             
-            
             misc = {
               #force_default_wallpaper = 0;
                disable_hyprland_logo   = true;
             };
             
-            
             # TODO: Set elsewhere? Or at least use variables.
             input = {
                kb_layout    = "se";
                kb_model     = "pc104";
-              #kb_variant   = ???;
-              #kb_options   = ???;
-              #kb_rules     = ???;
+               # kb_variant   = ???;
+               # kb_options   = ???;
+               # kb_rules     = ???;
                follow_mouse = 1;
                sensitivity  = 0; # -1.0 - 1.0, 0 means no modification.
-              #touchpad {
-              #   natural_scroll = false;
-              #};
+               # touchpad {
+               #    natural_scroll = false;
+               # };
             };
-            
-            
-            "$mainMod" = if (osConfig.altIsSuper or false) then "ALT" else "SUPER";
-            
+             
+            "$mainMod" = "SUPER"; # if (osConfig.altIsSuper or false) then "ALT" else "SUPER";
             
             bind = [
                "$mainMod,     T, exec, kitty"   # $terminal"
@@ -341,34 +305,14 @@ in {
                "$mainMod  CTRL,     J, resizeactive,   0  10"
             ];
             
-            
             bindm = [
                "$mainMod, mouse:272, movewindow"   # resize on LMB drag
                "$mainMod, mouse:273, resizewindow" #   move on RMB drag
             ];
-            
-            
-            exec-once = exec-once; 
+               
+            #exec-once = exec-once; 
          }; # end-of: `config.wayland.windowManager.hyprland.settings`
-      }; # end-of: `config.wayland.windowManager.hyprland`
+      }; # end-of: `config.wayland.windowManager.hyprland`*/
       
-      home.packages = with pkgs; [
-         git
-         libnotify       # (dependency of mako & dunst)
-         mako            # Notification daemon for Hyprland (alt: dunst)
-         grim            # Screenshot utility
-         slurp           # Select utility
-         swww            # Wallpaper system   (alt. hyprpaper|swaybg|wpaperd)
-         wl-clipboard    # Clipboard (Wayland)
-         rofi-wayland    # Application runner (alt: bemenu|fuzzel|tofi|wofi) (TODO: refactor out)
-         waybar          # Bar                                               (TODO: refactor out)
-         (waybar.overrideAttrs(
-            oldAttrs: {
-               mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-            }
-         ))
-         networkmanagerapplet
-      ];
-      
-   }; # end-of: `config`
+   #}; # end-of: `config`
 }
