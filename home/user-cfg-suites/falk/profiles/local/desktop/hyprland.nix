@@ -76,8 +76,8 @@ in*/ {
 
    wayland.windowManager.hyprland = {
          
-      #package  = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-      package  = inputs.hyprland.packages."${pkgs.system}".hyprland;
+      #package   = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      #package  = inputs.hyprland.packages."${pkgs.system}".hyprland;
       enable   = true;
       
       settings = {
