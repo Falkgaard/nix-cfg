@@ -17,7 +17,11 @@
 
    xdg.portal = {
       enable       = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # KDE?
+      extraPortals = with pkgs; [
+         xdg-desktop-portal-gtk
+         xdg-desktop-portal-hyprland
+         kdePackages.xdg-desktop-portal-kde
+      ];
    };
 
    /*{
