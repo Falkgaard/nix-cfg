@@ -15,7 +15,7 @@
       nvidia.modesetting.enable = true; # TODO: What if AMD..?
    };
 
-   xg.portal = {
+   xdg.portal = {
       enable       = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # KDE?
    };
