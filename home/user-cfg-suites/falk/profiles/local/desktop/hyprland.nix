@@ -60,27 +60,25 @@ let
    mkDefault = lib.mkDefault;
    mkForce   = lib.mkForce;
 in {
-   
-   # TODO: environment system packages?
-   home.packages = with pkgs; [
-      libnotify       # (dependency of mako & dunst)
-      mako            # Notification daemon for Hyprland (alt: dunst)
-      grim            # Screenshot utility
-      slurp           # Selec t utility
-      swww            # Wallpaper system   (alt. hyprpaper|swaybg|wpaperd)
-      wl-clipboard    # Clipboard (Wayland)
-      rofi-wayland    # Application runner (alt: bemenu|fuzzel|tofi|wofi) (TODO: refactor out)
-      #waybar          # Bar                                               (TODO: refactor out)
-      (waybar.overrideAttrs(
-         oldAttrs: {
-            mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-         }
-      ))
-      networkmanagerapplet
-   ];
-
    wayland.windowManager.hyprland = {
-         
+      # TODO: environment system packages?
+      packages = with pkgs; [
+         libnotify       # (dependency of mako & dunst)
+         mako            # Notification daemon for Hyprland (alt: dunst)
+         grim            # Screenshot utility
+         slurp           # Selec t utility
+         swww            # Wallpaper system   (alt. hyprpaper|swaybg|wpaperd)
+         wl-clipboard    # Clipboard (Wayland)
+         rofi-wayland    # Application runner (alt: bemenu|fuzzel|tofi|wofi) (TODO: refactor out)
+         waybar          # Bar                                               (TODO: refactor out)
+         (waybar.overrideAttrs(
+            oldAttrs: {
+               mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+            }
+         ))
+         networkmanagerapplet
+      ];
+
       enable = true;
       
       settings = {
