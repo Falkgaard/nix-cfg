@@ -74,6 +74,7 @@ in*/ {
       ))
       networkmanagerapplet
    ];
+   */
 
    wayland.windowManager.hyprland = {
          
@@ -82,6 +83,7 @@ in*/ {
       enable   = true;
       
       settings = {
+         /*
          general = {
             gaps_in               =  5;
             gaps_out              = 10;
@@ -94,7 +96,8 @@ in*/ {
             allow_tearing         = false; # See https://wiki.hyprland.org/Configuring/Tearing/
             layout                = "dwindle";
          };
-         
+         */
+
          # monitor = lib.mapAttrsToList(
          #    name: m: let
          #       resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
@@ -309,5 +312,4 @@ in*/ {
          #exec-once = exec-once; 
       }; # end-of: `wayland.windowManager.hyprland.settings`
    }; # end-of: `wayland.windowManager.hyprland`
-   */
 }
