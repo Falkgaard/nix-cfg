@@ -1,5 +1,5 @@
 { pkgs, config, lib, ... }:
-/* let
+let
    #moveToMonitor = lib.mapAttrsToList(
    #   id: workspace: "hyprctl dispatch moveworkspacetomonitor ${id} ${toString workspace.monitorId}"
    #) config.myHomeManager.workspaces;
@@ -56,7 +56,9 @@
    #   ( lib.getExe        monitorScript )
    #   "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
    # ]; # ++ autostarts;
-in*/ {
+   mkDefault = lib.mkDefault;
+   mkForce   = lib.mkForce;
+in {
    /*
    home.packages = with pkgs; [
       libnotify       # (dependency of mako & dunst)
@@ -127,7 +129,7 @@ in*/ {
             force_default_wallpaper = 0;
             #swallow_regex           = "^(Alacritty|wezterm)$";
          };
-         
+
          # binds = {
          #    movefocus_cycles_fullscreen = 0; # TODO: look into.
          # };
@@ -139,7 +141,7 @@ in*/ {
             drop_shadow         = true;
             shadow_range        = 20;
             shadow_render_power = 3;
-            "col.shadow"        = "rgba(1A1A1AEE)";
+            "col.shadow"        = mkDefault "rgba(1A1A1AEE)";
             blur                = {
                enabled               = true;
                size                  = 3;
