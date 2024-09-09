@@ -82,7 +82,7 @@ in {
       enable          = true;
       xwayland.enable = true;
       systemd.enable   = true;
-      package         = pkgs.hyprland;
+      #package        = pkgs.hyprland;
       settings = {
          general = {
             gaps_in               =  5;
